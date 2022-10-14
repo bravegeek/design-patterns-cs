@@ -16,8 +16,12 @@ Array.ForEach(filteredProducts.ToArray(), Console.WriteLine);
 Console.WriteLine();
 
 Console.WriteLine("Small AND Blue Products");
+// create array of specifications
 var manyAndSpecs = new ISpecification<Product>[] { new ColorSpecification(Color.Blue), new SizeSpecification(Size.Small)};
-var manyAndFilterProducts = new FilterProducts().Filter(products, new AndSpecification(manyAndSpecs));
+// AND specification
+var andSpec = new AndSpecification(manyAndSpecs);
+// Filter products w AND spec
+var manyAndFilterProducts = new FilterProducts().Filter(products, andSpec);
 Array.ForEach(manyAndFilterProducts.ToArray(), Console.WriteLine);
 Console.WriteLine();
 
@@ -71,9 +75,9 @@ public class ColorSpecification : ISpecification<Product>
         this.color = color;
     }
 
-    public bool IsSatisfied(Product product)
+    public bool IsSatisfied(Product item)
     {
-        return product.Color == color;
+        return item.Color == color;
     }
 }
 
@@ -85,9 +89,9 @@ public class SizeSpecification : ISpecification<Product>
         this.size = size;
     }
 
-    public bool IsSatisfied(Product product)
+    public bool IsSatisfied(Product item)
     {
-        return product.Size == size;
+        return item.Size == size;
     }
 }
 
@@ -99,10 +103,10 @@ public class AndSpecification : ISpecification<Product>
         this.specifications = specifications;
     }
 
-    public bool IsSatisfied(Product product)
+    public bool IsSatisfied(Product item)
     {
         // All specifications must be true for AND
-        return specifications.All(spec => spec.IsSatisfied(product));
+        return specifications.All(spec => spec.IsSatisfied(item));
     }
 }
 
@@ -114,10 +118,10 @@ public class OrSpecification : ISpecification<Product>
         this.specifications = specifications;
     }
 
-    public bool IsSatisfied(Product product)
+    public bool IsSatisfied(Product item)
     {
         // Any specification can be true for OR
-        return specifications.Any(spec => spec.IsSatisfied(product));
+        return specifications.Any(spec => spec.IsSatisfied(item));
     }
 }
 
@@ -127,6 +131,8 @@ public class FilterProducts : IFilter<Product>
     {
         return products.Where(product => spec.IsSatisfied(product));
         
+        // alternate implementation
+        // 
         // foreach (var product in products)
         //     if (spec.IsSatisfied(product))
         //         yield return product;
