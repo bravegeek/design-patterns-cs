@@ -57,7 +57,7 @@ public class Product {
     public string Name { get; set; }
     public Color Color { get; set; }
     public Size Size { get; set; }
-    
+
     public Product(string name, Color color, Size size)
     {
         Name = name;
@@ -71,7 +71,7 @@ public class Product {
     }
 }
 
-public interface ISpecification<T> 
+public interface ISpecification<T>
 {
     bool IsSatisfied(T t);
 }
@@ -144,7 +144,7 @@ public class FilterProducts : IFilter<Product>
     public IEnumerable<Product> Filter(IEnumerable<Product> products, ISpecification<Product> spec)
     {
         return products.Where(product => spec.IsSatisfied(product));
-        
+
         // alternate implementation
         // 
         // foreach (var product in products)
