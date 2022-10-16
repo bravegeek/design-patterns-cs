@@ -1,35 +1,49 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿namespace OpenClose;
+// See https://aka.ms/new-console-template for more information
 
-var products = new Product[] {
-    new Product("Bauble", Color.Blue, Size.Small),
-    new Product("Tree", Color.Green, Size.Large),
-    new Product("House", Color.Blue, Size.Large)
-};
+public class Program
+{
+    static void Main(string[] args)
+    {
+        var products = new Product[] {
+            new Product("Bauble", Color.Blue, Size.Small),
+            new Product("Tree", Color.Green, Size.Large),
+            new Product("House", Color.Blue, Size.Large)
+        };
 
-Console.WriteLine("All Products");
-Array.ForEach(products, Console.WriteLine);
-Console.WriteLine();
+        Console.WriteLine("All Products");
+        Array.ForEach(products, Console.WriteLine);
+        Console.WriteLine();
 
-Console.WriteLine("Blue Products");
-var filteredProducts = new FilterProducts().Filter(products, new ColorSpecification(Color.Blue));
-Array.ForEach(filteredProducts.ToArray(), Console.WriteLine);
-Console.WriteLine();
+        Console.WriteLine("Blue Products");
+        var filteredProducts = new FilterProducts().Filter(products, new ColorSpecification(Color.Blue));
+        Array.ForEach(filteredProducts.ToArray(), Console.WriteLine);
+        Console.WriteLine();
 
-Console.WriteLine("Small AND Blue Products");
-// create array of specifications
-var manyAndSpecs = new ISpecification<Product>[] { new ColorSpecification(Color.Blue), new SizeSpecification(Size.Small)};
-// AND specification
-var andSpec = new AndSpecification(manyAndSpecs);
-// Filter products w AND spec
-var manyAndFilterProducts = new FilterProducts().Filter(products, andSpec);
-Array.ForEach(manyAndFilterProducts.ToArray(), Console.WriteLine);
-Console.WriteLine();
+        Console.WriteLine("Small AND Blue Products");
+        // create array of specifications
+        var manyAndSpecs = new ISpecification<Product>[] { new ColorSpecification(Color.Blue), new SizeSpecification(Size.Small)};
+        // AND specification
+        var andSpec = new AndSpecification(manyAndSpecs);
+        // Filter products w AND spec
+        var manyAndFilterProducts = new FilterProducts().Filter(products, andSpec);
+        Array.ForEach(manyAndFilterProducts.ToArray(), Console.WriteLine);
+        Console.WriteLine();
 
-Console.WriteLine("Large OR Green Products");
-var manyOrSpecs = new ISpecification<Product>[] { new ColorSpecification(Color.Green), new SizeSpecification(Size.Large)};
-var manyOrFilterProducts = new FilterProducts().Filter(products, new OrSpecification(manyOrSpecs));
-Array.ForEach(manyOrFilterProducts.ToArray(), Console.WriteLine);
-Console.WriteLine();
+        Console.WriteLine("Large OR Green Products");
+        var manyOrSpecs = new ISpecification<Product>[] { new ColorSpecification(Color.Green), new SizeSpecification(Size.Large)};
+        var manyOrFilterProducts = new FilterProducts().Filter(products, new OrSpecification(manyOrSpecs));
+        Array.ForEach(manyOrFilterProducts.ToArray(), Console.WriteLine);
+        Console.WriteLine();
+    }
+}
+    // public void ColorSpec()
+    // {
+    //     var product = new Product("test", Color.Red, Size.Small);
+    //     var spec = new ColorSpecification(Color.Blue);
+    //     var satisfied = spec.IsSatisfied(product);
+    //     Assert.Equal(true, satisfied);
+    // }
 
 public enum Color {
     Red, Green, Blue
