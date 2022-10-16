@@ -1,4 +1,5 @@
 using OpenClose;
+using Moq;
 namespace PatternTests;
 
 public class OpenCloseTests
@@ -15,15 +16,37 @@ public class OpenCloseTests
                 new Product("Tree", Color.Green, Size.Large),
                 new Product("House", Color.Blue, Size.Large)
             };
-            _smallSpec = new SizeSpecification(Size.Small);
-            _blueSpec = new ColorSpecification(Color.Blue);
+        }
+
+        [Fact]
+        public void FilterCallsSpec()
+        {
+            var specMock = new Mock<ISpecification<Product>>();
+            specMock
+                .Setup(spec => spec.IsSatisfied(It.IsAny<Product>()))
+                .Returns(true)
+                .Verifiable();
+
+            var sut = new ProductFilter().Filter(_products, specMock.Object);
+
+            // Assert.Equal(3, sut.Count());
+
+            // Mock.Verify(specMock);
+
+            // cheater!
+            // specMock.Object.IsSatisfied(_products[0]);
+
+            specMock
+                .Verify(spec => spec.IsSatisfied(It.IsAny<Product>()));
+
+            // specMock.Verify(spec => spec.IsSatisfied(It.IsAny<Product>()), Times.Exactly(_products.Length));
         }
 
         [Fact]
         public void FilterReturnsCorrectProducts()
         {
-            var sut = new FilterProducts();
-            var filteredProducts = sut.Filter(_products, _blueSpec);
+            var sut = new ProductFilter();
+            var filteredProducts = sut.Filter(_products, new ColorSpecification(Color.Blue));
 
             Assert.Equal(2, filteredProducts.Count());
         }

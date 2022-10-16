@@ -16,7 +16,7 @@ public class Program
         Console.WriteLine();
 
         Console.WriteLine("Blue Products");
-        var filteredProducts = new FilterProducts().Filter(products, new ColorSpecification(Color.Blue));
+        var filteredProducts = new ProductFilter().Filter(products, new ColorSpecification(Color.Blue));
         Array.ForEach(filteredProducts.ToArray(), Console.WriteLine);
         Console.WriteLine();
 
@@ -26,13 +26,13 @@ public class Program
         // AND specification
         var andSpec = new AndSpecification(manyAndSpecs);
         // Filter products w AND spec
-        var manyAndFilterProducts = new FilterProducts().Filter(products, andSpec);
+        var manyAndFilterProducts = new ProductFilter().Filter(products, andSpec);
         Array.ForEach(manyAndFilterProducts.ToArray(), Console.WriteLine);
         Console.WriteLine();
 
         Console.WriteLine("Large OR Green Products");
         var manyOrSpecs = new ISpecification<Product>[] { new ColorSpecification(Color.Green), new SizeSpecification(Size.Large)};
-        var manyOrFilterProducts = new FilterProducts().Filter(products, new OrSpecification(manyOrSpecs));
+        var manyOrFilterProducts = new ProductFilter().Filter(products, new OrSpecification(manyOrSpecs));
         Array.ForEach(manyOrFilterProducts.ToArray(), Console.WriteLine);
         Console.WriteLine();
     }
@@ -139,7 +139,7 @@ public class OrSpecification : ISpecification<Product>
     }
 }
 
-public class FilterProducts : IFilter<Product>
+public class ProductFilter : IFilter<Product>
 {
     public IEnumerable<Product> Filter(IEnumerable<Product> products, ISpecification<Product> spec)
     {
