@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenClose", "OpenClose\Open
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatternTests", "PatternTests\PatternTests.csproj", "{3BF60B46-53BC-4F3C-91D3-76715E7DC7F8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiskovSubstitution", "LiskovSubstitution\LiskovSubstitution.csproj", "{C85F3048-52DD-43BD-BA27-9143A827E4C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{3BF60B46-53BC-4F3C-91D3-76715E7DC7F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BF60B46-53BC-4F3C-91D3-76715E7DC7F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BF60B46-53BC-4F3C-91D3-76715E7DC7F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C85F3048-52DD-43BD-BA27-9143A827E4C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C85F3048-52DD-43BD-BA27-9143A827E4C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C85F3048-52DD-43BD-BA27-9143A827E4C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C85F3048-52DD-43BD-BA27-9143A827E4C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
